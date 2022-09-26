@@ -1,0 +1,45 @@
+---
+title: "NYC_Universities"
+author: "maars-lab"
+date: "2022-09-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Top 10 universities in New York
+```{r popupNYC, echo=TRUE}
+set.seed(20220925-2)
+library(leaflet)
+universityIcon <- makeIcon(
+        iconUrl = "https://pixabay.com/get/gf2a9a3d3f69cb0f15fd9fcd158db98b34f58531ddb83deb69c7d5714abdc07ef763226467e389f70445ca9204feec3240afcae5550cbed2bb52086fb70bd18c3b20bf5ec1b52eb57c082738331a0f685_640.png",
+        iconWidth = 31*215/230, iconHeight = 31,
+        iconAnchorX = 31*215/230/2, iconAnchorY = 16
+)
+
+universityLatLong <- data.frame(
+        lat = c(40.8075, 42.4534, 40.7295, 43.0850, 42.7298, 43.0392, 40.8620, 40.8506, 42.0894, 40.9048),
+        lng = c(-73.9626, -76.4735, -73.9965, -77.6719, -73.6789, -76.1351, -73.8857, -73.9297, -75.9695, -73.1240)
+)
+
+links <- c(
+        "<a href='https://www.columbia.edu/'>Columbia University</a>",
+        "<a href='https://www.cornell.edu/'>Cornell University</a>",
+        "<a href='https://www.nyu.edu/'>New York University (NYU)</a>",
+        "<a href='https://www.rochester.edu/'>University of Rochester</a>",
+        "<a href='https://www.rpi.edu/'>Rensselaer Polytechnic Institute</a>",
+        "<a href='https://www.syracuse.edu/'>Syracuse University</a>",
+        "<a href='https://www.fordham.edu/'>Fordham University</a>",
+        "<a href='https://www.yu.edu/'>Yeshiva University</a>",
+        "<a href='https://www.binghamton.edu/'>Binghamton University</a>",
+        "<a href='https://www.stonybrook.edu/'>Stony Brook University</a>"
+)
+universityLatLong %>% 
+        leaflet() %>% 
+        addTiles() %>% 
+        addMarkers(icon = universityIcon, popup = links)
+```
+
